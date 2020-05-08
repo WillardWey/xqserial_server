@@ -208,6 +208,16 @@ void DiffDriverController::filterSpeed()
 
   linear_x_ = x_filter;
   theta_z_ = z_filter;
+  if(std::fabs(linear_x_)<0.01)
+  {
+    if(theta_z_>0.01 && theta_z_<0.2) theta_z_ = 0.2;
+    if(theta_z_>-0.2 && theta_z_<-0.01) theta_z_ = -0.2;
+  }
+  if(std::fabs(theta_z_)<0.01)
+  {
+    if(linear_x_>0.01 &&linear_x_<0.1) linear_x_ = 0.1;
+    if(linear_x_>-0.1 &&linear_x_<-0.01) theta_z_ = -0.1;
+  }
 }
 
 void DiffDriverController::send_speed()
